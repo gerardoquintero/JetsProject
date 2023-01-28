@@ -15,7 +15,7 @@ public class AnimalCargoJet extends Jet implements CargoCarrier{
 
 	@Override
 	public String toString() {
-		return "AnimalCargoJet: Model=" + getModel() + ", Range=" + getRange() + ", Price=" + getPrice()
+		return "Animal Cargo Jet: Model=" + getModel() + ", Range=" + getRange() + ", Price=" + getPrice()
 				+ ", Speed=" + getSpeed();
 	}
 }
