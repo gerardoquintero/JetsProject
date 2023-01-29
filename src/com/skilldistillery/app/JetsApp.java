@@ -31,10 +31,7 @@ public class JetsApp {
 			int userMenuSelection = displayMenuAndGetUserSelection(sc);
 			shouldQuitProgram = executeUserMenuChoice(userMenuSelection, jets);
 		} while (!shouldQuitProgram);
-		
-		
-		
-		
+
 	}
 
 	private List<Jet> populateAirField() {
@@ -53,12 +50,13 @@ public class JetsApp {
 
 				}
 			}
-			
+
 			input.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		} return airField.getJets();
+		}
+		return airField.getJets();
 
 	}
 
@@ -86,11 +84,11 @@ public class JetsApp {
 			Jet jet = null;
 			return jet;
 		}
-		
+
 	}
+
 	private int displayMenuAndGetUserSelection(Scanner sc) {
-		
-		
+
 		System.out.println("     ____.       __          ");
 		System.out.println("    |    | _____/  |_  ______");
 		System.out.println("    |    |/ __ \\   __\\/  ___/");
@@ -98,7 +96,7 @@ public class JetsApp {
 		System.out.println("\\________|\\___  >__| /____  >");
 		System.out.println("              \\/          \\/ ");
 		System.out.println("								");
-		
+
 		System.out.println(" --------------Menu--------------- ");
 		System.out.println("| 1. List Fleet.                  |");
 		System.out.println("| 2. Fly All Jets.                |");
@@ -109,20 +107,20 @@ public class JetsApp {
 		System.out.println("| 7. Add a jet to a fleet.        |");
 		System.out.println("| 8. Remove a jet from a fleet.   |");
 		System.out.println("| 9. Quit.                        |");
-		System.out.println("| Please Enter a number:          |");
-		
+		System.out.println("|_________________________________|");
+		System.out.print("Enter a number: ");
 		int userMenuSelection = sc.nextInt();
 		return userMenuSelection;
-		
-		
+
 	}
+
 	private boolean executeUserMenuChoice(int userMenuSelection, List<Jet> jets) {
 		switch (userMenuSelection) {
 		case 1:
 			listFleet(jets);
 			break;
 		case 2:
-//			showAverageRating(myTrucks);
+			flyAllJets(jets);
 			break;
 		case 3:
 //			showHighestRatedTruck(myTrucks);
@@ -137,11 +135,19 @@ public class JetsApp {
 		return false;
 	}
 
+	private void flyAllJets(List<Jet> jets) {
+		for (int i = 0; i < jets.size(); i++) {
+			System.out.println(jets.get(i));
+			jets.get(i).fly();
+			System.out.print("\n");
+		}
+
+	}
+
 	private void listFleet(List<Jet> jets) {
 		for (int i = 0; i < jets.size(); i++) {
 			System.out.println(jets.get(i));
 		}
 	}
-	
 
 }
