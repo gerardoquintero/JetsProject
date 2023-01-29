@@ -123,16 +123,43 @@ public class JetsApp {
 			flyAllJets(jets);
 			break;
 		case 3:
-//			showHighestRatedTruck(myTrucks);
+			displayFastestJet(jets);
 			break;
 		case 4:
-//			quitProgram();
+			displayLongestRangeJet(jets);
 			return true;
 		default:
 			System.out.println("Please select a valid number. ");
 			break;
 		}
 		return false;
+	}
+
+	private void displayLongestRangeJet(List<Jet> jets) {
+		Jet longestRangeJet = jets.get(0);
+		for (int i = 0; i < jets.size(); i++) {
+			if (jets.get(i) != null) {
+				if (longestRangeJet.getRange() < jets.get(i).getRange()) {
+					longestRangeJet = jets.get(i);
+				}
+			}
+
+		}
+		System.out.println(longestRangeJet);
+		
+	}
+
+	private void displayFastestJet(List<Jet> jets) {
+		Jet fastestJet = jets.get(0);
+		for (int i = 0; i < jets.size(); i++) {
+			if (jets.get(i) != null) {
+				if (fastestJet.getSpeed() < jets.get(i).getSpeed()) {
+					fastestJet = jets.get(i);
+				}
+			}
+
+		}
+		System.out.println(fastestJet);
 	}
 
 	private void flyAllJets(List<Jet> jets) {
