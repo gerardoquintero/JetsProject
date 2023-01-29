@@ -2,6 +2,7 @@ package com.skilldistillery.app;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -31,7 +32,7 @@ public class JetsApp {
 		boolean shouldQuitProgram = false;
 		do {
 			int userMenuSelection = displayMenuAndGetUserSelection(sc);
-			shouldQuitProgram = executeUserMenuChoice(userMenuSelection, jets);
+			shouldQuitProgram = executeUserMenuChoice(userMenuSelection, jets, sc);
 		} while (!shouldQuitProgram);
 
 	}
@@ -116,7 +117,7 @@ public class JetsApp {
 
 	}
 
-	private boolean executeUserMenuChoice(int userMenuSelection, List<Jet> jets) {
+	private boolean executeUserMenuChoice(int userMenuSelection, List<Jet> jets, Scanner sc) {
 		switch (userMenuSelection) {
 		case 1:
 			listFleet(jets);
@@ -129,11 +130,15 @@ public class JetsApp {
 			break;
 		case 4:
 			displayLongestRangeJet(jets);
+			break;
 		case 5:
 			loadCargoJets(jets);
 			break;
 		case 6:
 			dogFight(jets);
+			break;
+		case 7:
+			userCreateJet(jets, sc);
 			break;
 
 		default:
@@ -143,18 +148,77 @@ public class JetsApp {
 		return false;
 	}
 
+	private void userCreateJet(List<Jet> jets, Scanner sc) {
+		int jetChoice = displayAndSelectUserJetChoice(sc);
+		Jet userJet = createCustomJet(jetChoice, sc);
+		if (userJet != null) {
+			jets.add(userJet);
+			System.out.println("Your jet was successfully created! \n" + userJet);
+		}
+	}
+
+	private Jet createCustomJet(int jetChoice, Scanner sc) {
+		int jetToCreate = jetChoice;
+
+		try {
+			sc.nextLine();
+			System.out.println("What is the model? ");
+			String model = sc.nextLine();
+			System.out.println("What is the range? ");
+			double range = sc.nextDouble();
+			System.out.println("What is the price? ");
+			double price = sc.nextDouble();
+			System.out.println("What is the speed? ");
+			double speed = sc.nextDouble();
+			if (jetToCreate == 1) {
+				CargoPlane newPlane = new CargoPlane(model, range, price, speed);
+				return newPlane;
+			} else if (jetToCreate == 2) {
+				AnimalCargoJet newPlane = new AnimalCargoJet(model, range, price, speed);
+				return newPlane;
+			} else if (jetToCreate == 3) {
+				FighterJet newPlane = new FighterJet(model, range, price, speed);
+				return newPlane;
+			} else if (jetToCreate == 4) {
+				FighterBomberJet newPlane = new FighterBomberJet(model, range, price, speed);
+				return newPlane;
+			} else {
+				Jet jet = null;
+				System.out.println("Jet could not be created. ");
+				return jet;
+			}
+
+		} catch (InputMismatchException e) {
+			System.out.println("Please enter a valid number for range, price, speed. ");
+		}
+		return null;
+
+	}
+
+	private int displayAndSelectUserJetChoice(Scanner sc) {
+		System.out.println(" -------Jet Types------- ");
+		System.out.println("| 1. Cargo              |");
+		System.out.println("| 2. Animal Cargo       |");
+		System.out.println("| 3. Fighter            |");
+		System.out.println("| 4. Bomber             |");
+		System.out.println("|_______________________|");
+		System.out.print("Create a Jet, Enter a number: ");
+		int userJetSelection = sc.nextInt();
+		return userJetSelection;
+
+	}
+
 	private void dogFight(List<Jet> jets) {
 		for (Jet jet : jets) {
 			if (jet instanceof CombatReady) {
 				System.out.println(jet);
-				((CombatReady) jet).fight();;
+				((CombatReady) jet).fight();
+				;
 				System.out.print("\n");
 			}
 		}
 
 	}
-
-	
 
 	private void loadCargoJets(List<Jet> jets) {
 		for (Jet jet : jets) {
