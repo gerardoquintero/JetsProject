@@ -7,7 +7,9 @@ import java.util.Scanner;
 
 import com.skilldistillery.entities.AirField;
 import com.skilldistillery.entities.AnimalCargoJet;
+import com.skilldistillery.entities.CargoCarrier;
 import com.skilldistillery.entities.CargoPlane;
+import com.skilldistillery.entities.CombatReady;
 import com.skilldistillery.entities.FighterBomberJet;
 import com.skilldistillery.entities.FighterJet;
 import com.skilldistillery.entities.Jet;
@@ -127,12 +129,42 @@ public class JetsApp {
 			break;
 		case 4:
 			displayLongestRangeJet(jets);
-			return true;
+		case 5:
+			loadCargoJets(jets);
+			break;
+		case 6:
+			dogFight(jets);
+			break;
+
 		default:
 			System.out.println("Please select a valid number. ");
 			break;
 		}
 		return false;
+	}
+
+	private void dogFight(List<Jet> jets) {
+		for (Jet jet : jets) {
+			if (jet instanceof CombatReady) {
+				System.out.println(jet);
+				((CombatReady) jet).fight();;
+				System.out.print("\n");
+			}
+		}
+
+	}
+
+	
+
+	private void loadCargoJets(List<Jet> jets) {
+		for (Jet jet : jets) {
+			if (jet instanceof CargoCarrier) {
+				System.out.println(jet);
+				((CargoCarrier) jet).loadCargo();
+				System.out.print("\n");
+			}
+		}
+
 	}
 
 	private void displayLongestRangeJet(List<Jet> jets) {
@@ -146,7 +178,7 @@ public class JetsApp {
 
 		}
 		System.out.println(longestRangeJet);
-		
+
 	}
 
 	private void displayFastestJet(List<Jet> jets) {

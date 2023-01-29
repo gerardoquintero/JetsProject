@@ -9,8 +9,7 @@ public class AnimalCargoJet extends Jet implements CargoCarrier{
 
 	@Override
 	public void loadCargo() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("Loading Cargo... Animals...");
 	}
 
 	@Override
