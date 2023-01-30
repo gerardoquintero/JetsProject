@@ -140,12 +140,21 @@ public class JetsApp {
 		case 7:
 			userCreateJet(jets, sc);
 			break;
-
+		case 8:
+			displayAndSelectUserJetToRemove(jets, sc);
+			break;
+		case 9:
+			quitProgram();
+			return true;
 		default:
 			System.out.println("Please select a valid number. ");
 			break;
 		}
 		return false;
+	}
+
+	private void quitProgram() {
+		System.out.println("Quitting Program. Goodbye...");
 	}
 
 	private void userCreateJet(List<Jet> jets, Scanner sc) {
@@ -206,6 +215,19 @@ public class JetsApp {
 		int userJetSelection = sc.nextInt();
 		return userJetSelection;
 
+	}
+
+	private void displayAndSelectUserJetToRemove(List<Jet> jets, Scanner sc) {
+		int index = 1;
+		for (Jet jet : jets) {
+			System.out.println(index++ + ": " + jet);
+		}
+		System.out.print("Please select a jet to remove: ");
+		index = sc.nextInt();
+		if (this.airField.getJets().get(index - 1) != null) {
+			this.airField.getJets().remove(index - 1);
+			System.out.println("Jet successfully removed.");
+		}
 	}
 
 	private void dogFight(List<Jet> jets) {
